@@ -1,60 +1,35 @@
----
-title: setup()
-categories: [ "Functions" ]
-subCategories: [ "Sketch" ]
----
+const crateButton = document.getElementById('crate-button');
+const crateStatus = document.getElementById('crate-status');
+let crateOpen = false;
 
+crateButton.addEventListener('click', () => {
+  if (crateOpen) {
+    crateOpen = false;
+    crateButton.textContent = 'Close Crate';
+    crateStatus.textContent = 'Crate status: Closed';
+  } else {
+    crateOpen = true;
+    crateButton.textContent = 'Open Crate';
+    crateStatus.textContent = 'Crate status: Open';
+  }
+});
 
-
-
-
-= setup()
-
-
-// OVERVIEW SECTION STARTS
-[#overview]
---
-
-[float]
-=== Description
-The `setup()` function is called when a sketch starts. Use it to initialize variables, pin modes, start using libraries, etc. The `setup()` function will only run once, after each powerup or reset of the Arduino board.
-[%hardbreaks]
-
---
-// OVERVIEW SECTION ENDS
-
-
-// HOW TO USE SECTION STARTS
-[#howtouse]
---
-
-[float]
-=== Example Code
-
-[source,arduino]
-----
-int buttonPin = 3;
-
-void setup() {
-  Serial.begin(9600);
-  pinMode(buttonPin, INPUT);
+// Hypothetical cat detection API
+const detectCat = () => {
+  // Make a request to the cat detection API
+  // If a cat is detected, return true
+  // Otherwise, return false
+  return Math.random() < 0.5;
 }
 
-void loop() {
-  // ...
-}
-----
-
---
-// HOW TO USE SECTION ENDS
-
-
-// SEE ALSO SECTION
-[#see_also]
---
-
-[float]
-=== See also
-
---
-// SEE ALSO SECTION ENDS
+// Check for a cat every 1000ms
+setInterval(() => {
+  if (detectCat()) {
+    if (crateOpen) {
+      crateOpen = false;
+      crateButton.textContent = 'Close Crate';
+      crateStatus.textContent = 'Crate status: Closed';
+    }
+    alert('Cat detected! Crate closed automatically.');
+  }
+}, 1000);
